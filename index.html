@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f4d36">
+<title>Hill &amp; Grill Café – Menu</title>
+<style>
+:root{--green:#1f4d36;--green2:#2c6a4a;--cream:#faf5e6;--card:#fffdf6;--gold:#e0a92e;--red:#b3261e;--ink:#1d2a22;--mute:#5e6b63;--line:#e7dfc8;--wa:#1a8f4a;font-size:16px}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--cream);color:var(--ink);padding-bottom:calc(88px + env(safe-area-inset-bottom))}
+body.lock{overflow:hidden}
+button,input,textarea{font:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+[hidden]{display:none!important}
+.top{position:sticky;top:0;z-index:5;background:var(--green);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;box-shadow:0 2px 8px #0003}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:40px;height:40px;flex:none}
+.brand h1{margin:0;font-size:1.15rem;line-height:1.1}.brand p{margin:2px 0 0;font-size:.8rem;color:var(--gold);font-style:italic}
+.badge{margin-left:auto;background:var(--gold);color:#3a2a00;border:0;border-radius:999px;padding:8px 14px;font-weight:800;letter-spacing:.04em;min-height:40px}
+#search{width:100%;margin-top:10px;padding:12px 14px;border-radius:12px;border:0;font-size:1rem;background:#fff;color:var(--ink)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;min-height:40px;padding:0 16px;border-radius:999px;border:1.5px solid #ffffff55;background:transparent;color:#fff;font-weight:600;cursor:pointer}
+.chip.on{background:var(--gold);color:#3a2a00;border-color:var(--gold)}
+.grid .chip{color:var(--green);border-color:var(--green);background:#fff;min-width:52px}
+main{padding:6px 14px;max-width:640px;margin:0 auto}
+.cat h2{margin:22px 0 8px;font-size:1.05rem;color:var(--green);border-bottom:2px solid var(--gold);padding-bottom:6px;display:inline-block}
+.item{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px;box-shadow:0 1px 3px #0000000d}
+.item img{width:56px;height:56px;object-fit:cover;border-radius:10px}
+.info{flex:1;min-width:0}.info h3{margin:0 0 3px;font-size:1rem;line-height:1.25}.info p{margin:0 0 3px;font-size:.85rem;color:var(--mute)}.info b{color:var(--green);font-size:1.05rem}
+.dot{flex:none;width:16px;height:16px;border:2px solid;border-radius:3px;position:relative}
+.dot::after{content:"";position:absolute;inset:2px;border-radius:50%;background:currentColor}
+.dot.veg{color:#1a8f4a}.dot.nonveg{color:var(--red)}
+.add{min-width:80px;min-height:44px;border-radius:10px;border:1.5px solid var(--green);background:#fff;color:var(--green);font-weight:800;cursor:pointer}
+.step{display:inline-flex;align-items:center;background:var(--green);color:#fff;border-radius:10px;overflow:hidden}
+.step button{width:44px;height:44px;border:0;background:transparent;color:#fff;font-size:1.3rem;cursor:pointer}
+.step span{min-width:26px;text-align:center;font-weight:800}
+.step.sm button{width:38px;height:38px}
+.sold{color:var(--red);font-weight:700;font-size:.85rem}
+.empty{text-align:center;color:var(--mute);padding:40px 0}
+.cartbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:6;display:flex;justify-content:space-between;align-items:center;min-height:56px;padding:0 20px;border:0;border-radius:16px;background:var(--green);color:#fff;font-size:1rem;box-shadow:0 6px 18px #0005;cursor:pointer;max-width:616px;margin:auto}
+.cartbar strong{color:var(--gold)}
+.sheet{position:fixed;inset:0;z-index:10;background:#0008;display:flex;align-items:flex-end;justify-content:center}
+.panel{position:relative;background:var(--cream);width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom))}
+.panel h2{margin:0 0 4px;color:var(--green)}
+.close{position:absolute;top:10px;right:10px;width:44px;height:44px;border:0;background:transparent;font-size:2rem;cursor:pointer}
+.ordering{margin:0 0 12px}.ordering b{background:var(--green);color:#fff;padding:3px 10px;border-radius:999px;font-size:.9rem}
+.line{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
+.ln{flex:1;min-width:0}.ln b{display:block}.ln small{color:var(--mute)}
+.lt{font-weight:700;min-width:56px;text-align:right}
+.rm{width:36px;height:36px;border:0;background:transparent;color:var(--red);font-size:1.4rem;cursor:pointer}
+.total{display:flex;justify-content:space-between;font-weight:800;font-size:1.2rem;padding:12px 0;border-top:2px solid var(--ink);margin-top:6px}
+label{display:block;font-weight:600;margin:8px 0 4px}
+textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px;background:#fff;resize:vertical}
+small#notesCount{color:var(--mute)}
+.row{display:flex;gap:10px;margin-top:14px}.row .btn{flex:1}
+.btn{display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 16px;border-radius:12px;border:2px solid transparent;font-weight:800;cursor:pointer;text-decoration:none;text-align:center;width:100%}
+.btn.primary{background:var(--green);color:#fff}.btn.ghost{background:transparent;color:var(--green);border-color:var(--green);margin-top:10px}.row .btn.ghost{margin-top:0}
+.btn.wa{background:var(--wa);color:#fff;font-size:1.05rem}.btn[aria-disabled=true]{opacity:.5;pointer-events:none}
+.warn{background:#fff3cd;border-left:4px solid var(--gold);padding:10px 12px;border-radius:8px;margin:14px 0}
+.notes{color:var(--mute);margin:0}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}
+footer{text-align:center;color:var(--mute);font-size:.8rem;padding:24px 14px}footer a{color:var(--green)}
+@media(prefers-reduced-motion:no-preference){.item,.cartbar{transition:transform .1s}.add:active{transform:scale(.96)}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 48 48" aria-hidden="true"><path d="M2 40 18 14l8 12 6-8 14 22z" fill="#e0a92e"/><path d="M10 40l5-9 5 9zM36 40l4-8 4 8z" fill="#fff" opacity=".85"/></svg>
+    <div><h1>Hill &amp; Grill Café</h1><p>Good Food, Good Mood</p></div>
+    <button id="tableBadge" class="badge" type="button" hidden></button>
+  </div>
+  <input id="search" type="search" placeholder="Search menu..." aria-label="Search menu" autocomplete="off">
+  <nav id="chips" class="chips" aria-label="Categories"></nav>
+</header>
+
+<main id="menu"></main>
+
+<button id="cartBar" class="cartbar" type="button" hidden>
+  <span id="cartSummary"></span><strong>View Cart</strong>
+</button>
+
+<div id="sheet" class="sheet" role="dialog" aria-modal="true" aria-label="Your order" hidden>
+  <div class="panel">
+    <button id="closeSheet" class="close" type="button" aria-label="Close">×</button>
+
+    <section id="viewCart">
+      <h2>Your Cart</h2>
+      <p class="ordering">Ordering for <b id="cartTable"></b></p>
+      <div id="cartLines"></div>
+      <div class="total"><span>TOTAL</span><span id="cartTotal"></span></div>
+      <label for="notes">Special instructions (optional)</label>
+      <textarea id="notes" rows="2" placeholder="e.g. Less spicy, no onion, extra sauce"></textarea>
+      <small id="notesCount"></small>
+      <div class="row">
+        <button id="clearCart" class="btn ghost" type="button">Clear Cart</button>
+        <button id="toReview" class="btn primary" type="button">Review Order</button>
+      </div>
+    </section>
+
+    <section id="viewReview" hidden>
+      <h2>Confirm Your Order</h2>
+      <p class="ordering">Ordering for <b id="revTable"></b></p>
+      <div id="revLines"></div>
+      <div class="total"><span>TOTAL</span><span id="revTotal"></span></div>
+      <p id="revNotes" class="notes"></p>
+      <p class="warn">WhatsApp will open with your order. <b>Please tap Send in WhatsApp to confirm your order.</b></p>
+      <a id="sendBtn" class="btn wa" target="_blank" rel="noopener">SEND ORDER ON WHATSAPP</a>
+      <button id="backCart" class="btn ghost" type="button">← Back to cart</button>
+    </section>
+  </div>
+</div>
+
+<div id="tablePicker" class="sheet" role="dialog" aria-modal="true" aria-label="Choose table" hidden>
+  <div class="panel">
+    <h2>Which table are you at?</h2>
+    <p>We couldn't read a table number from your QR code. Please choose your table.</p>
+    <div id="tableGrid" class="grid"></div>
+  </div>
+</div>
+
+<footer>Hill &amp; Grill Café · Shamlech, Shimla–Chandigarh Bypass Rd, Solan, HP 173211<br>
+<a href="tel:+919805449309">9805449309</a> · <a href="tel:+919816565545">9816565545</a> · <a href="mailto:hillandgrillcafe@gmail.com">hillandgrillcafe@gmail.com</a></footer>
+
+<script>
+/* ===== Single source of truth. Edit ONLY this file to change menu, prices or settings. ===== */
+const CONFIG = {
+  RESTAURANT: "HILL & GRILL CAFÉ",
+  WHATSAPP_NUMBER: "919805449309", // country code + number, digits only
+  MAX_TABLES: 30,
+  MAX_QTY: 20,
+  MAX_NOTES: 200
+};
+
+// Menu order = display order (beverages last). Empty categories are hidden automatically.
+const CATEGORIES = [
+  { id: "veg-delights", name: "Veg Delights", short: "Veg" },
+  { id: "maggi", name: "Maggi", short: "Maggi" },
+  { id: "paratha", name: "Paratha & More", short: "Paratha" },
+  { id: "non-veg", name: "Non-Veg Delights", short: "Non-Veg" },
+  { id: "eggs-rice-soup", name: "Eggs, Rice, Soup & More", short: "Eggs & Rice" },
+  { id: "beverages", name: "Beverages & Shakes", short: "Beverages" }
+];
+
+/* type: "veg" | "nonveg".  Items inside each category are sorted by price automatically.
+   All three printed menu pages are loaded (owner corrections applied). To add an item:
+   { id: "new-item", name: "New Item", category: "maggi", price: 90, type: "veg", available: true },
+   Items with a missing/zero price are rejected at startup and hidden, so nothing is guessed.
+   Optional per item: description: "...", image: "assets/food/x.jpg" */
+const MENU = [
+  { id: "veg-fingers", name: "Veg Fingers (6 pcs.)", category: "veg-delights", price: 100, type: "veg", available: true },
+  { id: "paneer-queen-burger", name: "Paneer Queen Burger", category: "veg-delights", price: 120, type: "veg", available: true },
+  { id: "paneer-corn-fried-momos", name: "Paneer Corn & Fried Momos", category: "veg-delights", price: 120, type: "veg", available: true },
+  { id: "chicken-finger", name: "Chicken Finger (6 pcs)", category: "non-veg", price: 100, type: "nonveg", available: true },
+  { id: "chicken-popcorn", name: "Chicken Popcorn (1 portion)", category: "non-veg", price: 100, type: "nonveg", available: true },
+  { id: "chicken-nuggets", name: "Chicken Nuggets (6 pcs)", category: "non-veg", price: 100, type: "nonveg", available: true },
+  { id: "chicken-roll", name: "Chicken Roll (1 pc)", category: "non-veg", price: 120, type: "nonveg", available: true },
+  { id: "chicken-sausages", name: "Chicken Sausages (1 portion)", category: "non-veg", price: 120, type: "nonveg", available: true },
+  { id: "chicken-kebab-roll", name: "Chicken Kebab Roll (1 pc)", category: "non-veg", price: 120, type: "nonveg", available: true },
+  { id: "chicken-queen-burger", name: "Chicken Queen Burger", category: "non-veg", price: 130, type: "nonveg", available: true },
+  { id: "chicken-wings", name: "Chicken Wings (6 pcs)", category: "non-veg", price: 150, type: "nonveg", available: true },
+  { id: "chicken-burger", name: "Chicken Burger", category: "non-veg", price: 160, type: "nonveg", available: true },
+  { id: "chicken-steam-momos", name: "Chicken Steam Momos (8 pcs)", category: "non-veg", price: 160, type: "nonveg", available: true },
+  { id: "chicken-seekh-kebab", name: "Chicken Seekh Kebab (2 pcs)", category: "non-veg", price: 160, type: "nonveg", available: true },
+  { id: "chicken-fried-momos", name: "Chicken Fried Momos (8 pcs)", category: "non-veg", price: 170, type: "nonveg", available: true },
+  { id: "chicken-king-burger", name: "Chicken King Burger", category: "non-veg", price: 180, type: "nonveg", available: true },
+  { id: "mutton-kebab", name: "Mutton Kebab (3 Pcs.)", category: "non-veg", price: 210, type: "nonveg", available: true },
+  { id: "boiled-egg", name: "Boiled Egg (1 pc)", category: "eggs-rice-soup", price: 15, type: "nonveg", available: true },
+  { id: "chapati", name: "Chapati (1 pc)", category: "eggs-rice-soup", price: 15, type: "veg", available: true },
+  { id: "omelette-fried-egg", name: "Omelette / Fried Egg", category: "eggs-rice-soup", price: 40, type: "nonveg", available: true },
+  { id: "bread-omelette", name: "Bread Omelette", category: "eggs-rice-soup", price: 70, type: "nonveg", available: true },
+  { id: "chicken-soup", name: "Chicken Soup", category: "eggs-rice-soup", price: 90, type: "nonveg", available: true },
+  { id: "mutton-kebab-roll", name: "Mutton Kebab Roll (1 pc)", category: "eggs-rice-soup", price: 150, type: "nonveg", available: true },
+  { id: "chicken-chawal", name: "Chicken Chawal", category: "eggs-rice-soup", price: 150, type: "nonveg", available: true },
+  { id: "mutton-kharode-soup", name: "Mutton / Kharode Soup", category: "eggs-rice-soup", price: 220, type: "nonveg", available: true },
+  { id: "mutton-chawal", name: "Mutton Chawal", category: "eggs-rice-soup", price: 300, type: "nonveg", available: true },
+  { id: "special-tea", name: "Special Tea (Chai)", category: "beverages", price: 15, type: "veg", available: true },
+  { id: "lemon-tea", name: "Lemon Tea", category: "beverages", price: 30, type: "veg", available: true },
+  { id: "hot-coffee", name: "Hot Coffee", category: "beverages", price: 40, type: "veg", available: true },
+  { id: "vanilla-shake", name: "Vanilla Shake", category: "beverages", price: 90, type: "veg", available: true },
+  { id: "chocolate-shake", name: "Chocolate Shake", category: "beverages", price: 90, type: "veg", available: true },
+  { id: "banana-shake", name: "Banana Shake", category: "beverages", price: 90, type: "veg", available: true },
+  { id: "cold-coffee", name: "Cold Coffee", category: "beverages", price: 100, type: "veg", available: true },
+  { id: "oreo-shake", name: "Oreo Shake", category: "beverages", price: 110, type: "veg", available: true },
+  { id: "veg-burger", name: "Veg Burger (1 pc)", category: "veg-delights", price: 80, type: "veg", available: true },
+  { id: "veg-roll", name: "Veg Roll (1 pc)", category: "veg-delights", price: 80, type: "veg", available: true },
+  { id: "spring-roll", name: "Spring Roll (1 portion)", category: "veg-delights", price: 90, type: "veg", available: true },
+  { id: "grilled-sandwich", name: "Grilled Sandwich (1 pc)", category: "veg-delights", price: 90, type: "veg", available: true },
+  { id: "french-fries", name: "French Fries", category: "veg-delights", price: 90, type: "veg", available: true },
+  { id: "siddu-namkeen", name: "Siddu Namkeen", category: "veg-delights", price: 90, type: "veg", available: true },
+  { id: "veg-steam-momos", name: "Veg Steam Momos (8 pcs)", category: "veg-delights", price: 100, type: "veg", available: true },
+  { id: "siddu-meetha", name: "Siddu Meetha", category: "veg-delights", price: 110, type: "veg", available: true },
+  { id: "veg-crispy-momos", name: "Veg Crispy Momos (8 pcs)", category: "veg-delights", price: 120, type: "veg", available: true },
+  { id: "paneer-king-burger", name: "Paneer King Burger (1 pc)", category: "veg-delights", price: 150, type: "veg", available: true },
+  { id: "plain-maggi", name: "Plain Maggi", category: "maggi", price: 60, type: "veg", available: true },
+  { id: "veg-maggi", name: "Veg Maggi", category: "maggi", price: 70, type: "veg", available: true },
+  { id: "peri-peri-maggi", name: "Peri Peri Maggi", category: "maggi", price: 75, type: "veg", available: true },
+  { id: "cheese-maggi", name: "Cheese Maggi", category: "maggi", price: 80, type: "veg", available: true },
+  { id: "cheese-butter-maggi", name: "Cheese Butter Maggi", category: "maggi", price: 100, type: "veg", available: true },
+  { id: "butter", name: "Butter", category: "paratha", price: 15, type: "veg", available: true },
+  { id: "dahi", name: "Dahi", category: "paratha", price: 20, type: "veg", available: true },
+  { id: "aloo-paratha", name: "Aloo Paratha", category: "paratha", price: 50, type: "veg", available: true },
+  { id: "cold-drink-glass", name: "Cold Drink (Glass)", category: "paratha", price: 50, type: "veg", available: true },
+  { id: "gobhi-paratha", name: "Gobhi Paratha", category: "paratha", price: 60, type: "veg", available: true },
+  { id: "dal-chawal-half", name: "Dal Chawal (Half)", category: "paratha", price: 60, type: "veg", available: true },
+  { id: "dal-chawal-full", name: "Dal Chawal (Full)", category: "paratha", price: 110, type: "veg", available: true },
+  { id: "pyaaz-paratha", name: "Pyaaz Paratha", category: "paratha", price: 70, type: "veg", available: true },
+  { id: "veg-soup", name: "Veg Soup", category: "paratha", price: 70, type: "veg", available: true },
+  { id: "paneer-paratha", name: "Paneer Paratha", category: "paratha", price: 80, type: "veg", available: true }
+];
+
+// Validated, price-sorted lookup used by the whole app.
+const MENU_BY_ID = new Map();
+const VALID_MENU = MENU.filter(i =>
+  i && /^[a-z0-9-]+$/.test(i.id) && i.name && Number.isFinite(i.price) && i.price > 0 &&
+  CATEGORIES.some(c => c.id === i.category) && !MENU_BY_ID.has(i.id) && MENU_BY_ID.set(i.id, i)
+).sort((a, b) => a.price - b.price || a.name.localeCompare(b.name));
+</script>
+<script>
+/* Cart stores only {id: qty}. Prices are always read from MENU_BY_ID. A cart is bound to one table. */
+const Cart = (() => {
+  const KEY = "hg_cart_v1";
+  let state = { table: null, items: {}, notes: "" };
+  const listeners = [];
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+  const emit = () => { save(); listeners.forEach(f => f()); };
+  const cleanQty = q => { q = Math.floor(Number(q)); return Number.isFinite(q) ? Math.max(0, Math.min(CONFIG.MAX_QTY, q)) : 0; };
+
+  function init(table) {
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+    state = { table, items: {}, notes: "" };
+    if (saved && saved.table === table && saved.items && typeof saved.items === "object") {
+      for (const [id, q] of Object.entries(saved.items)) if (MENU_BY_ID.has(id) && cleanQty(q) > 0) state.items[id] = cleanQty(q);
+      state.notes = typeof saved.notes === "string" ? saved.notes.slice(0, CONFIG.MAX_NOTES) : "";
+    }
+    emit();
+  }
+  const qty = id => state.items[id] || 0;
+  function set(id, q) {
+    if (!MENU_BY_ID.has(id) || MENU_BY_ID.get(id).available === false) return;
+    q = cleanQty(q);
+    if (q === 0) delete state.items[id]; else state.items[id] = q;
+    emit();
+  }
+  const lines = () => Object.keys(state.items).filter(id => MENU_BY_ID.has(id)).map(id => {
+    const item = MENU_BY_ID.get(id), q = state.items[id];
+    return { item, qty: q, total: item.price * q };
+  });
+  return {
+    init, qty, lines,
+    add: id => set(id, qty(id) + 1),
+    dec: id => set(id, qty(id) - 1),
+    remove: id => set(id, 0),
+    clear() { state.items = {}; state.notes = ""; emit(); },
+    count: () => lines().reduce((s, l) => s + l.qty, 0),
+    total: () => lines().reduce((s, l) => s + l.total, 0),
+    table: () => state.table,
+    notes: () => state.notes,
+    setNotes(n) { state.notes = String(n).slice(0, CONFIG.MAX_NOTES); save(); },
+    onChange: f => listeners.push(f)
+  };
+})();
+</script>
+<script>
+const WhatsApp = {
+  cleanNotes(s) {
+    return String(s || "").replace(/[\u0000-\u001f\u007f<>]/g, " ").replace(/\s+/g, " ").trim().slice(0, CONFIG.MAX_NOTES);
+  },
+  buildMessage(table, lines, total, notes) {
+    const L = [CONFIG.RESTAURANT, "NEW TABLE ORDER", "", "Table: " + table, ""];
+    lines.forEach(l => { L.push(l.qty + " × " + l.item.name, "₹" + l.item.price + " × " + l.qty + " = ₹" + l.total, ""); });
+    L.push("--------------------", "TOTAL: ₹" + total, "--------------------");
+    const n = this.cleanNotes(notes);
+    if (n) L.push("", "Special Instructions:", n);
+    L.push("", "Order generated from Hill & Grill QR Menu.");
+    return L.join("\n");
+  },
+  // Returns a wa.me URL, or null if the order is invalid (no table / empty cart).
+  buildUrl(table, lines, total, notes) {
+    if (!Number.isInteger(table) || !lines.length || !(total > 0)) return null;
+    return "https://wa.me/" + CONFIG.WHATSAPP_NUMBER + "?text=" + encodeURIComponent(this.buildMessage(table, lines, total, notes));
+  }
+};
+</script>
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const rs = n => "₹" + n;
+  function h(tag, attrs, ...kids) {           // safe DOM builder: never uses innerHTML
+    const e = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs || {})) {
+      if (k === "class") e.className = v;
+      else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+      else if (v != null && v !== false) e.setAttribute(k, v);
+    }
+    kids.flat().forEach(c => { if (c != null) e.append(c.nodeType ? c : String(c)); });
+    return e;
+  }
+
+  /* ---------- table ---------- */
+  function validTable(raw) {
+    if (raw == null || !/^\d{1,3}$/.test(String(raw).trim())) return null;
+    const n = parseInt(raw, 10);
+    return n >= 1 && n <= CONFIG.MAX_TABLES ? n : null;
+  }
+  let table = validTable(new URLSearchParams(location.search).get("table"));
+  if (table == null) { try { table = validTable(sessionStorage.getItem("hg_table")); } catch (e) {} }
+
+  function setTable(n) {
+    table = n;
+    try { sessionStorage.setItem("hg_table", String(n)); } catch (e) {}
+    Cart.init(n);
+    const b = $("#tableBadge");
+    b.hidden = false; b.textContent = "TABLE " + n;
+    $("#tablePicker").hidden = true;
+  }
+
+  /* ---------- menu list ---------- */
+  let activeCat = "all", query = "";
+
+  function renderChips() {
+    const nav = $("#chips"); nav.replaceChildren();
+    const cats = CATEGORIES.filter(c => VALID_MENU.some(i => i.category === c.id));
+    [{ id: "all", short: "All" }, ...cats].forEach(c =>
+      nav.append(h("button", { type: "button", class: "chip" + (activeCat === c.id ? " on" : ""), "aria-pressed": activeCat === c.id,
+        onclick: () => { activeCat = c.id; renderChips(); renderMenu(); window.scrollTo({ top: 0 }); } }, c.short)));
+  }
+
+  function control(item) {
+    const box = h("div", { class: "ctl", "data-id": item.id });
+    if (item.available === false) { box.append(h("span", { class: "sold" }, "Sold out")); return box; }
+    const q = Cart.qty(item.id);
+    if (!q) box.append(h("button", { type: "button", class: "add", onclick: () => Cart.add(item.id) }, "ADD"));
+    else box.append(
+      h("div", { class: "step" },
+        h("button", { type: "button", "aria-label": "Remove one " + item.name, onclick: () => Cart.dec(item.id) }, "−"),
+        h("span", { "aria-live": "polite" }, q),
+        h("button", { type: "button", "aria-label": "Add one " + item.name, onclick: () => Cart.add(item.id) }, "+")));
+    return box;
+  }
+
+  function renderMenu() {
+    const root = $("#menu"); root.replaceChildren();
+    const q = query.trim().toLowerCase();
+    let shown = 0;
+    CATEGORIES.forEach(cat => {
+      if (activeCat !== "all" && activeCat !== cat.id) return;
+      const items = VALID_MENU.filter(i => i.category === cat.id &&
+        (!q || (i.name + " " + (i.description || "")).toLowerCase().includes(q)));
+      if (!items.length) return;
+      shown += items.length;
+      root.append(h("section", { class: "cat" }, h("h2", null, cat.name),
+        items.map(i => h("article", { class: "item" },
+          h("span", { class: "dot " + (i.type === "veg" ? "veg" : "nonveg"), role: "img", "aria-label": i.type === "veg" ? "Vegetarian" : "Non-vegetarian" }),
+          i.image ? h("img", { src: i.image, alt: "", loading: "lazy", width: 56, height: 56 }) : null,
+          h("div", { class: "info" }, h("h3", null, i.name), i.description ? h("p", null, i.description) : null, h("b", null, rs(i.price))),
+          control(i)))));
+    });
+    if (!shown) root.append(h("p", { class: "empty" }, VALID_MENU.length ? "No items match your search." : "Menu coming soon."));
+  }
+
+  function refreshControls() {
+    document.querySelectorAll(".ctl[data-id]").forEach(el => {
+      const item = MENU_BY_ID.get(el.dataset.id);
+      if (item) el.replaceWith(control(item));
+    });
+  }
+
+  /* ---------- cart bar & sheet ---------- */
+  function renderBar() {
+    const c = Cart.count();
+    $("#cartBar").hidden = c === 0;
+    $("#cartSummary").textContent = c + (c === 1 ? " item" : " items") + " • " + rs(Cart.total());
+    if (c === 0 && !$("#sheet").hidden) closeSheet();
+  }
+
+  function lineRows(container, editable) {
+    container.replaceChildren();
+    Cart.lines().forEach(l => container.append(h("div", { class: "line" },
+      h("div", { class: "ln" }, h("b", null, l.item.name), h("small", null, l.qty + " × " + rs(l.item.price))),
+      editable ? h("div", { class: "step sm" },
+        h("button", { type: "button", "aria-label": "Decrease " + l.item.name, onclick: () => Cart.dec(l.item.id) }, "−"),
+        h("span", null, l.qty),
+        h("button", { type: "button", "aria-label": "Increase " + l.item.name, onclick: () => Cart.add(l.item.id) }, "+")) : null,
+      h("span", { class: "lt" }, rs(l.total)),
+      editable ? h("button", { type: "button", class: "rm", "aria-label": "Remove " + l.item.name, onclick: () => Cart.remove(l.item.id) }, "×") : null)));
+  }
+
+  function renderCart() {
+    lineRows($("#cartLines"), true);
+    $("#cartTotal").textContent = rs(Cart.total());
+    $("#cartTable").textContent = "TABLE " + Cart.table();
+  }
+
+  function showReview() {
+    const notes = WhatsApp.cleanNotes($("#notes").value);
+    lineRows($("#revLines"), false);
+    $("#revTable").textContent = "TABLE " + table;
+    $("#revTotal").textContent = rs(Cart.total());
+    $("#revNotes").textContent = notes ? "Special instructions: " + notes : "";
+    const url = WhatsApp.buildUrl(table, Cart.lines(), Cart.total(), notes);
+    const a = $("#sendBtn");
+    if (url) { a.href = url; a.removeAttribute("aria-disabled"); } else { a.removeAttribute("href"); a.setAttribute("aria-disabled", "true"); }
+    $("#viewCart").hidden = true; $("#viewReview").hidden = false;
+  }
+
+  function openSheet() {
+    if (table == null) { $("#tablePicker").hidden = false; return; }
+    $("#viewCart").hidden = false; $("#viewReview").hidden = true;
+    $("#notes").value = Cart.notes(); updateNotesCount();
+    renderCart(); $("#sheet").hidden = false; document.body.classList.add("lock");
+  }
+  function closeSheet() { $("#sheet").hidden = true; document.body.classList.remove("lock"); }
+  function updateNotesCount() { $("#notesCount").textContent = $("#notes").value.length + "/" + CONFIG.MAX_NOTES; }
+
+  /* ---------- wiring ---------- */
+  function init() {
+    const grid = $("#tableGrid");
+    for (let n = 1; n <= CONFIG.MAX_TABLES; n++) grid.append(h("button", { type: "button", class: "chip", onclick: () => setTable(n) }, n));
+    $("#notes").maxLength = CONFIG.MAX_NOTES;
+
+    Cart.onChange(() => { refreshControls(); renderBar(); if (!$("#sheet").hidden && !$("#viewCart").hidden) renderCart(); });
+    $("#search").addEventListener("input", e => { query = e.target.value; renderMenu(); });
+    $("#cartBar").addEventListener("click", openSheet);
+    $("#closeSheet").addEventListener("click", closeSheet);
+    $("#sheet").addEventListener("click", e => { if (e.target.id === "sheet") closeSheet(); });
+    $("#tableBadge").addEventListener("click", () => { $("#tablePicker").hidden = false; });
+    $("#notes").addEventListener("input", e => { Cart.setNotes(e.target.value); updateNotesCount(); });
+    $("#toReview").addEventListener("click", () => { if (Cart.count()) showReview(); });
+    $("#backCart").addEventListener("click", () => { $("#viewReview").hidden = true; $("#viewCart").hidden = false; });
+    $("#clearCart").addEventListener("click", () => { if (confirm("Clear all items from your cart?")) { Cart.clear(); $("#notes").value = ""; } });
+    $("#sendBtn").addEventListener("click", e => { if (!e.currentTarget.getAttribute("href")) e.preventDefault(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet(); });
+
+    renderChips(); renderMenu();
+    if (table != null) setTable(table); else { Cart.init(null); $("#tablePicker").hidden = false; }
+  }
+  init();
+})();
+</script>
+</body>
+</html>
